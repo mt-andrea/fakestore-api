@@ -9,11 +9,21 @@ useEffect(() => {
     .then((json)=>setCustomers(json))
 }, []);
 
+const [filter, setFilter] = useState("");
+
+function szur(e) {
+    setFilter(e.target.value)
+}
+
     return(
         <div>
             <h1>Customers</h1>
+            <input type="text" value={filter} onChange={szur} />
             <ul>
-                {customers.map((c)=>(
+                {customers
+                .filter((c)=>
+                c.name.firstname.includes(filter)||c.name.lastname.includes(filter))
+                .map((c)=>(
                     <li key={c.id}>
                         {c.name.firstname+" "+c.name.lastname}
                     </li>
